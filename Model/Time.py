@@ -63,6 +63,11 @@ class Time(ReactiveModel):
         Saver().save_data(str_to_saver, time)
 
     def get_time(self, str_to_saver):
-        return Saver().get_data(str_to_saver)
+        res = "00:00:00"
+        try:
+            res = Saver().get_data(str_to_saver)
+        except:
+            Saver().save_data(str_to_saver,res)
+        return res
 
 time_class = Time()

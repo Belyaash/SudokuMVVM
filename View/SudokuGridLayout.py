@@ -18,7 +18,8 @@ class SudokuGridLayout(QWidget):
         self.setLayout(self.__layout)
 
     def generate_grid(self, grid):
-        font = QFont('Baron Neue', 40//math.sqrt(len(grid)))
+        font = QFont('Baron Neue')
+        font.setPointSize(int(40//math.sqrt(len(grid))))
         size = QtCore.QSize(300//len(grid), 300//len(grid))
         self.__layout = QVBoxLayout()
         self.__layout.setSpacing(0)
