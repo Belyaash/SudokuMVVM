@@ -1,5 +1,7 @@
 from PyQt5.QtWidgets import QWidget, QMainWindow, QVBoxLayout, QPushButton, QLabel
 
+from Model import model
+from Model.model import Model, main_model
 from View.MenuLayout import MenuLayout
 from View.SetDigitsUI import Digits
 from View.SudokuGridLayout import SudokuGridLayout
@@ -31,7 +33,7 @@ class View(QWidget):
         self.layout.addWidget(self.time_layout)
 
         new_game_button = QPushButton("New Game")
-        new_game_button.clicked.connect(view_model.new_game)
+        new_game_button.clicked.connect(main_model.new_game)
         self.layout.addWidget(new_game_button)
 
         self.menu_button = QPushButton("To menu")
@@ -39,7 +41,7 @@ class View(QWidget):
         self.layout.addWidget(self.menu_button)
 
         self.solve_button = QPushButton("Solve")
-        self.solve_button.clicked.connect(view_model.solve)
+        self.solve_button.clicked.connect(main_model.sudoku_model.solve)
         self.layout.addWidget(self.solve_button)
 
         self.setLayout(self.layout)
@@ -100,7 +102,7 @@ class View(QWidget):
         if not digit:
             return
 
-        view_model.set_num_in_grid(index // side, index % side, int(digit))
+        main_model.sudoku_model.set_cell_num(index // side, index % side, int(digit))
 
     def __set_digit_dialog(self):
         window = Digits(int(view_model.len_of_side))

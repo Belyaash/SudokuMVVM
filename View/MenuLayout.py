@@ -17,7 +17,7 @@ class MenuLayout(QWidget):
         self.difficulty_combo_box = QtWidgets.QComboBox()
         self.difficulty_combo_box.setGeometry(QtCore.QRect(0, 30, 120, 30))
         self.difficulty_combo_box.addItems(["Easy", "Medium", "Hard"])
-        self.difficulty_combo_box.setCurrentText(view_model.difficulty)
+        self.__get_difficulty(view_model.difficulty)
         self.difficulty_combo_box.currentTextChanged.connect(self.__difficulty_changed)
         main_layout.addWidget(self.difficulty_combo_box)
 
@@ -46,7 +46,20 @@ class MenuLayout(QWidget):
         self.setLayout(main_layout)
 
     def __difficulty_changed(self):
-        view_model.difficulty = self.difficulty_combo_box.currentText()
+        res = 0
+        if self.difficulty_combo_box.currentText() == "Medium":
+            res = 1
+        elif self.difficulty_combo_box.currentText() == "Hard":
+            res = 2
+        view_model.difficulty = res
+
+    def __get_difficulty(self, difficulty):
+        if view_model.difficulty == 0:
+            self.difficulty_combo_box.setCurrentText("Easy")
+        elif view_model.difficulty == 1:
+            self.difficulty_combo_box.setCurrentText('Medium')
+        else:
+            self.difficulty_combo_box.setCurrentText('Hard')
 
     def __length_changed(self):
         view_model.len_of_side = self.size_cb.currentText()
